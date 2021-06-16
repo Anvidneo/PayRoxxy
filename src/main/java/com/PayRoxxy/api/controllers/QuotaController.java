@@ -31,12 +31,12 @@ public class QuotaController {
         return this.quotaService.saveQuota(quota);
     }
     
-    @PostMapping(path = "/{id}")
+    @GetMapping(path = "/{id}")
     public Optional<QuotaModel> getQuotaById(@PathVariable("id") Integer id) {
         return this.quotaService.getById(id);
     }
 
-    @PostMapping(path = "/amount/{idUser}")
+    @GetMapping(path = "/amount/{idUser}")
     public Double getAmountTotalByUser(@PathVariable("idUser") Integer idUser){
         return this.quotaService.getAmountTotalByUser(idUser);
     }

@@ -35,16 +35,16 @@ public class PaymentService {
         // --
 
         // Get params
-        String user = (params.getHead()).getUser();
-        String pass = (params.getHead()).getPassword();
-        String entityId = (params.getHead()).getEntity();
+        String user = params.getHead().getUser();
+        String pass = params.getHead().getPassword();
+        String entityId = params.getHead().getEntity();
 
-        Integer idTransaction = (params.getUtil().getIdTransaction());
-        String datePayment = (params.getUtil().getDatePayment());
-        String codCon = (params.getUtil().getCodSearch());
-        Double amountTotal = (params.getUtil().getAmountTotal());
-        String placePayment = (params.getUtil().getPlacePayment());
-        Integer invoice = (params.getUtil().getListDetail().getinvoice());
+        Integer idTransaction = params.getUtil().getIdTransaction();
+        String datePayment = params.getUtil().getDatePayment();
+        String codCon = params.getUtil().getCodSearch();
+        Double amountTotal = params.getUtil().getAmountTotal();
+        String placePayment = params.getUtil().getPlacePayment();
+        Integer invoice = params.getUtil().getListDetail().getinvoice();
 
         Integer id = Integer.parseInt(entityId);
         

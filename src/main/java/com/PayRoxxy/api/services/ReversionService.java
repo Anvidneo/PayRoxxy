@@ -35,15 +35,15 @@ public class ReversionService {
         // --
 
         // Get params
-        String user = (params.getHead()).getUser();
-        String pass = (params.getHead()).getPassword();
-        String entityId = (params.getHead()).getEntity();
+        String user = params.getHead().getUser();
+        String pass = params.getHead().getPassword();
+        String entityId = params.getHead().getEntity();
 
         // CodigoBusqueda
-        String codCon = (params.getUtil().getCodSearch());
-        Integer idPay = (params.getUtil().getIdPay());
-        Integer idReversion = (params.getUtil().getIdReversion());
-        String dateReversion = (params.getUtil().getDateReversion());
+        String codCon = params.getUtil().getCodSearch();
+        Integer idPay = params.getUtil().getIdPay();
+        Integer idReversion = params.getUtil().getIdReversion();
+        String dateReversion = params.getUtil().getDateReversion();
 
         Integer id = Integer.parseInt(entityId);
         

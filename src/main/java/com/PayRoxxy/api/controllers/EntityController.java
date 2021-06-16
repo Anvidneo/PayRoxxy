@@ -31,13 +31,13 @@ public class EntityController {
         return this.entityService.saveEntity(entity);
     }
 
-    @PostMapping(path = "/{id}")
+    @GetMapping(path = "/{id}")
     public Optional<EntityModel> getEntityById(@PathVariable("id") Integer id) {
         return this.entityService.getById(id);
     }
 
     @GetMapping(path = "/exists/{id}")
     public Boolean getEntityByIdIfExists(@PathVariable("id") Integer id){
-        return this.entityService.existById(id);
+        return this.entityService.getByIdifExists(id);
     }
 }

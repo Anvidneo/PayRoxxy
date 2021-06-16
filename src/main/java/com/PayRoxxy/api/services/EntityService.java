@@ -41,13 +41,4 @@ public class EntityService {
         }
     }
 
-    public Boolean existById(Integer id){
-        Optional<EntityModel> entity = entityRepository.findById(id);
-        if (entity != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 }

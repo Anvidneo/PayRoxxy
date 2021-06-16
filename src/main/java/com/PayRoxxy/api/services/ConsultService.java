@@ -7,10 +7,8 @@ import com.PayRoxxy.api.models.QuotaModel;
 import com.PayRoxxy.api.models.ResponseModelB;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 import com.PayRoxxy.api.models.ConsultModelB;
-import com.PayRoxxy.api.models.EntityModel;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,11 +41,11 @@ public class ConsultService {
         utilRes.setNameClien("");
 
         // Get params
-        String user = (params.getHead()).getUser();
-        String pass = (params.getHead()).getPassword();
-        String entityId = (params.getHead()).getEntity();
-        String codCon = (params.getUtil().getCodSearch());
-        String codSer = (params.getUtil().getCodService());
+        String user = params.getHead().getUser();
+        String pass = params.getHead().getPassword();
+        String entityId = params.getHead().getEntity();
+        String codCon = params.getUtil().getCodSearch();
+        String codSer = params.getUtil().getCodService();
         Integer id = Integer.parseInt(entityId);
         
         // Check if user and password correct, and if id entity is correct
@@ -55,38 +53,30 @@ public class ConsultService {
         if (entity != null) {
             Integer idUser = this.userService.getIdUser(user, pass);
             // Check if entity exist
-            Integer eId = null;
-            Optional<EntityModel> optionalEntityModel = entityService.getById(id);
-            if(optionalEntityModel.isPresent()){
-                eId = optionalEntityModel.get().getId();
-                if (eId != null) {
-                    // Check if condominium exist
-                    String nameCond = this.condominiumService.getByName(codCon).getName();
-                    if (codCon.equals(nameCond)) {
-                        // Define head response
-                        headRes.setCodError("000");
-                        headRes.setDescription("Don't have error");
-                        // Define util response
-                        String nameClient = entity.getName();
-                        utilRes.setNameClien(nameClient);
-                        Double amount = quotaService.getAmountTotalByUser(idUser);
-                        // If amount is 0 get list of quotas
-                        if (amount.equals(0.0)) {
-                            ArrayList<QuotaModel> list = quotaService.getByIdUser(idUser);
-                            utilRes.setList(list);
-                        } else {
-                            utilRes.setAmountOwed(amount);
-                            utilRes.setList(null);
-                        }
+            Boolean optionalEntityModel = entityService.getByIdifExists(id);
+            if (optionalEntityModel) {
+                // Check if condominium exist
+                String nameCond = this.condominiumService.getByName(codCon).getName();
+                if (codCon.equals(nameCond)) {
+                    // Define head response
+                    headRes.setCodError("000");
+                    headRes.setDescription("Don't have error");
+                    // Define util response
+                    String nameClient = entity.getName();
+                    utilRes.setNameClien(nameClient);
+                    Double amount = quotaService.getAmountTotalByUser(idUser);
+                    // If amount is 0 get list of quotas
+                    if (amount.equals(0.0)) {
+                        ArrayList<QuotaModel> list = quotaService.getByIdUser(idUser);
+                        utilRes.setList(list);
                     } else {
-                        // Define head response
-                        headRes.setCodError("204");
-                        headRes.setDescription("Condominium not found");
+                        utilRes.setAmountOwed(amount);
+                        utilRes.setList(null);
                     }
                 } else {
                     // Define head response
-                    headRes.setCodError("203");
-                    headRes.setDescription("Entity not found");
+                    headRes.setCodError("204");
+                    headRes.setDescription("Condominium not found");
                 }
             } else {
                 // Define head response

@@ -33,7 +33,7 @@ public class UserController {
         return this.userService.saveUser(user);
     }
     
-    @PostMapping(path = "/{id}")
+    @GetMapping(path = "/{id}")
     public Optional<UserModel> getUserById(@PathVariable("id") Integer id) {
         return this.userService.getById(id);
     }
